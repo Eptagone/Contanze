@@ -212,7 +212,11 @@ public class ConstanzeBot : AsyncTelegramBotBase<ConstanzeInit>
 				break;
 
 			default:
-				await this.Api.SendMessageAsync(message.Chat.Id, "Sorry but i don't understand you.", cancellationToken: cancellationToken);
+				// If the chat is a private chat, send a message.
+				if (message.Chat.Type == ChatType.Private)
+				{
+					await this.Api.SendMessageAsync(message.Chat.Id, "Sorry but i don't understand you.", cancellationToken: cancellationToken);
+				}
 				break;
 		}
 	}
